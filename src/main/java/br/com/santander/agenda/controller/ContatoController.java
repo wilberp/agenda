@@ -27,9 +27,10 @@ public class ContatoController {
 
     @PostMapping
     public ResponseEntity<ContatoDto> salvaContato(@RequestBody Contato contato)  {
+        Contato retContato = contatoService.salvaContato(contato);
 
-        ContatoDto retorno = ContatoDto.converte(contatoService.salvaContato(contato));
-        if (retorno != null){
+        if (retContato != null){
+            ContatoDto retorno = ContatoDto.converte(retContato);
             URI uri = UriComponentsBuilder.fromPath("contato/{id}").buildAndExpand(contato.getId()).toUri();
             return ResponseEntity.created(uri).body(retorno);
         }else{
