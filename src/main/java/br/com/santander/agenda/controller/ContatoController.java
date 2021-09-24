@@ -20,6 +20,7 @@ public class ContatoController {
         this.contatoService = contatoService;
     }
 
+
     @GetMapping
     public ResponseEntity<List<Contato>> todosContatos(){
         return ResponseEntity.ok(contatoService.getAll());
