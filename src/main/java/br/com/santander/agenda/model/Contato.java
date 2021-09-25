@@ -2,6 +2,7 @@ package br.com.santander.agenda.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,6 +20,7 @@ public class Contato implements Serializable {
 	private String sobrenome;
 	private LocalDate dataNascimento;
 	private String apelido;
+	private String imagem;
 
 	@OneToMany (mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Telefone>  telefones = new ArrayList<>();
@@ -96,5 +98,13 @@ public class Contato implements Serializable {
 	public void adicionaEmail(Email emails) {
 		emails.setContato(this);
 		this.emails.add(emails);
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 }

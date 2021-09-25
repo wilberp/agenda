@@ -5,6 +5,8 @@ import br.com.santander.agenda.model.dto.ContatoDto;
 import br.com.santander.agenda.repository.ContatoRepository;
 import br.com.santander.agenda.repository.ContatoSpecification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,12 +22,13 @@ public class ContatoServiceImpl implements ContatoService {
     }
 
     @Override
-    public Contato getContato(Integer id){
-        return contatoRepository.getById(id);
+    public Contato buscaContatoPorId(Integer id){
+        Contato ret = contatoRepository.getById(id);
+        return ret;
     }
 
     @Override
-    public List<Contato> getAll(){
+    public List<Contato> buscaContatos(){
         return contatoRepository.findAll();
     }
 
@@ -43,6 +46,16 @@ public class ContatoServiceImpl implements ContatoService {
         if (contato!=null){
             boolean retorno = verificaPorNomeESobrenome(contato.getNome(), contato.getSobrenome());
             return retorno == false ? contatoRepository.save(contato) : null;
+        }else{
+            return null;
+        }
+    }
+    @Override
+    public Contato salvaFotoContatoId(Integer id, String file) {
+        Contato retornoContato = contatoRepository.getById(id);
+        retornoContato.setImagem(file);
+        if (retornoContato!=null){
+            return contatoRepository.save(retornoContato);
         }else{
             return null;
         }
