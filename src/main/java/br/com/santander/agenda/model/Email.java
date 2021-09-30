@@ -1,7 +1,5 @@
 package br.com.santander.agenda.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity

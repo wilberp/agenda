@@ -60,4 +60,21 @@ public class ContatoServiceImpl implements ContatoService {
             return null;
         }
     }
+
+    @Override
+    public Contato alteraContato(Contato contato) {
+        Contato retornoContato = contatoRepository.getById(contato.getId());
+        if (retornoContato != null) {
+            return contatoRepository.save(contato);
+        }
+        return retornoContato;
+    }
+
+    @Override
+    public void deletaContato(Integer id) {
+        Contato retornoContato = contatoRepository.getById(id);
+        if (retornoContato != null) {
+            contatoRepository.deleteById(retornoContato.getId());
+        }
+    }
 }

@@ -21,7 +21,8 @@ public class SwaggerConfig {
                 .apiInfo(getApinfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.santander.agenda"))
-                .paths(PathSelectors.ant("/**"))
+                //.paths(PathSelectors.ant("/**"))
+                .paths(PathSelectors.any())
                 .build();
 
     }

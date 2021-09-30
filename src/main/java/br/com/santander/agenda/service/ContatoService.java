@@ -13,4 +13,7 @@ public interface ContatoService {
     Contato salvaContato(Contato contato);
     boolean verificaPorNomeESobrenome(String nome, String sobrenome);
     Contato salvaFotoContatoId(Integer id, String file);
+    Contato alteraContato(Contato contato);
+    void deletaContato (Integer id);
+
 }
