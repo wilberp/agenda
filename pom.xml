@@ -76,30 +76,23 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.bsc.maven</groupId>
-				<artifactId>maven-processor-plugin</artifactId>
-				<version>2.2.4</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
-						<id>process</id>
-						<goals>
-							<goal>process</goal>
-						</goals>
+						<id>add-source</id>
 						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
 						<configuration>
-							<processors>
-								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-							</processors>
+							<sources>
+								<source>target/generated-sources/annotations</source>
+							</sources>
 						</configuration>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-jpamodelgen</artifactId>
-						<version>${hibernate.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
