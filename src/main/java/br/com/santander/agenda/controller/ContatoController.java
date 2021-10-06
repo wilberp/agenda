@@ -22,7 +22,6 @@ public class ContatoController {
 
     private static String diretorioUpload = "C:\\teste_upload\\";
 
-
     ContatoService contatoService;
 
     public ContatoController(ContatoService contatoService) {
