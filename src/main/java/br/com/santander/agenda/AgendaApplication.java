@@ -8,10 +8,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class AgendaApplication {
 
+	//https://microservices.io/
 	//http://localhost:8080/swagger-ui/index.html
 
 	public static void main(String[] args) {
 		SpringApplication.run(AgendaApplication.class, args);
 	}
-
+	//https://devcenter.heroku.com/articles/customizing-the-jdk
 }
