@@ -1,6 +1,7 @@
 package br.com.santander.agenda.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Endereco {
 	private String numero;
 	private String cidade;
 	private String tipo;
+	@JsonIgnore
 	@ManyToOne
 	private Contato contato;
 
@@ -54,4 +56,15 @@ public class Endereco {
 		this.contato = contato;
 	}
 
+	@Override
+	public String toString() {
+		return "Endereco{" +
+				"id=" + id +
+				", rua='" + rua + '\'' +
+				", numero='" + numero + '\'' +
+				", cidade='" + cidade + '\'' +
+				", tipo='" + tipo + '\'' +
+				", contato=" + contato +
+				'}';
+	}
 }

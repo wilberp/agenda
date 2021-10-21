@@ -1,6 +1,7 @@
 package br.com.santander.agenda.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ public class Telefone {
     private String residencial;
     private String celular;
     private String recado;
+    @JsonIgnore
     @ManyToOne
     private Contato contato;
 
@@ -40,5 +42,16 @@ public class Telefone {
 
     public void setContato(Contato contato) {
         this.contato = contato;
+    }
+
+    @Override
+    public String toString() {
+        return "Telefone{" +
+                "id=" + id +
+                ", residencial='" + residencial + '\'' +
+                ", celular='" + celular + '\'' +
+                ", recado='" + recado + '\'' +
+                ", contato=" + contato +
+                '}';
     }
 }

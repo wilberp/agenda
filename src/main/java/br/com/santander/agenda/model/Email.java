@@ -1,5 +1,7 @@
 package br.com.santander.agenda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,8 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String email;
+
+    @JsonIgnore
     @ManyToOne
     private Contato contato;
 
@@ -27,6 +31,13 @@ public class Email {
         this.contato = contato;
     }
 
+    @Override
+    public String toString() {
+        return "Email{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
 
 

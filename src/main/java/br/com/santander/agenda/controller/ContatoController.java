@@ -3,7 +3,11 @@ package br.com.santander.agenda.controller;
 import br.com.santander.agenda.model.Contato;
 import br.com.santander.agenda.model.dto.ContatoDto;
 import br.com.santander.agenda.service.ContatoService;
+import br.com.santander.agenda.service.KafkaProducerService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,9 +27,12 @@ public class ContatoController {
     private static String diretorioUpload = "C:\\teste_upload\\";
 
     ContatoService contatoService;
+    KafkaProducerService kafkaProducerService;
 
-    public ContatoController(ContatoService contatoService) {
+    @Autowired
+    public ContatoController(ContatoService contatoService,  KafkaProducerService kafkaProducerService) {
         this.contatoService = contatoService;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
 
@@ -41,6 +48,30 @@ public class ContatoController {
         if (retContato != null){
             ContatoDto retorno = ContatoDto.converte(retContato);
             URI uri = UriComponentsBuilder.fromPath("contato/{id}").buildAndExpand(contato.getId()).toUri();
+
+            //kafkaProducerService.enviaMensagem(uri.toString());
+
+            return ResponseEntity.created(uri).body(retorno);
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @PostMapping(value = "/kafka")
+    public ResponseEntity<ContatoDto> salvaContatoKakfa(@RequestBody Contato contato)  {
+        Contato retContato = contatoService.salvaContato(contato);
+
+        Gson gson = new Gson();
+
+        if (retContato != null){
+            ContatoDto retorno = ContatoDto.converte(retContato);
+            URI uri = UriComponentsBuilder.fromPath("contato/{id}").buildAndExpand(contato.getId()).toUri();
+
+            // converte objetos Java para JSON e retorna JSON como String
+            String json = gson.toJson(retContato);
+
+            kafkaProducerService.enviaMensagem(json);
+
             return ResponseEntity.created(uri).body(retorno);
         }else{
             return ResponseEntity.noContent().build();

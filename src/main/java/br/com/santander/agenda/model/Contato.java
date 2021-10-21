@@ -1,8 +1,10 @@
 package br.com.santander.agenda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,10 +24,13 @@ public class Contato implements Serializable {
 	private String apelido;
 	private String imagem;
 
+	@JsonIgnore @Expose(serialize = false)
 	@OneToMany (mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Telefone>  telefones = new ArrayList<>();
+	@JsonIgnore @Expose(serialize = false)
 	@OneToMany(mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
+	@Expose(serialize = true)
 	@OneToMany(mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Email> emails = new ArrayList<>();
 
@@ -106,5 +111,20 @@ public class Contato implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	@Override
+	public String toString() {
+		return "Contato{" +
+				"id=" + id +
+				", nome='" + nome + '\'' +
+				", sobrenome='" + sobrenome + '\'' +
+				", dataNascimento=" + dataNascimento +
+				", apelido='" + apelido + '\'' +
+				", imagem='" + imagem + '\'' +
+				", telefones=" + telefones +
+				", enderecos=" + enderecos +
+				", emails=" + emails +
+				'}';
 	}
 }
